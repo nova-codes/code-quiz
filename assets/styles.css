@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Starway';
+    src: url('Starway.otf') format('OpenType'); }
+
+body {
+    height: 100%;
+    width: 100%;
+    background: #454545 url('bg.jpg') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font: 15px/110% 'Cutive Mono', monospace;
+    color: #efefef; 
+}
+
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0; 
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85); 
+}
+
+.quiz-start {
+    width: 70%; 
+    background: rgba(35,35,35,0.8);
+    border: 1px solid #c22c6b;
+    outline: 1px solid #c22c6b;
+    outline-offset: -20px;
+    text-align: center;
+}
+
+h1.flicker {
+    font: 100px/120% 'Starway', serif;
+    color: #c22c6b; 
+    color: rgba(194,44,107,0.8); 
+}
+
+@keyframes flicker {
+    0% {
+      opacity: 1; }
+    31.8% {
+      opacity: 0.9; }
+    32% {
+      opacity: 0; }
+    32.2% {
+      opacity: 0.9; }
+    94.6% {
+      opacity: 1; }
+    95% {
+      opacity: 0; }
+    95.4% {
+      opacity: 0.9; }
+    100% {
+      opacity: 1; } }
+
+.flick {
+    animation: flicker 4s infinite;
+}
+
+.flick:nth-last-of-type(2) {
+    animation-delay: 1.7s; 
+}
+
+.pre-text {
+    padding: 10px;
+    margin: 20px auto; 
+}
+
+.start-btn {
+    background: #c22c6b; 
+    font-size: 15px;
+    color: #efefef;
+    text-transform: lowercase; 
+    letter-spacing: 1px;
+    word-spacing: 3px; 
+}
