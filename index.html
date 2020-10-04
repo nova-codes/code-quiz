@@ -16,7 +16,7 @@
 </head>
 <body>
 
-    <div id='start-screen' class='show'>
+    <div id='start-screen'>
         <div class='jumbotron quiz-start'>
             <h1 class='flicker'> java<span class='flick'>s</span>cript knowl<span class='flick'>e</span>dge </h1>
             <div class='pre-text'> Take this short quiz to determine your coding prowess. </div>
@@ -24,12 +24,9 @@
         </div>
     </div>
     
-    <div class='jumbotron'>
-        <h1 class='question'> question <span id='q-counter'>0</span>/5</h1>
+    <div class='jumbotron quiz-contain'>
+        <h1 class='question'> <span class='flick'>q</span>uest<span class='flick'>i</span>on <span id='q-counter'>0</span>/5</h1>
         <h3 id='question-text'></h3>
-
-        <div id='timer'> <span class='timer-count'> 0 </span></div>
-        <div id='score'> <span class='score-count'> 0 </span></div>
 
         <ul id='answer-opt'>
             <li class='answer'></li>
@@ -37,6 +34,9 @@
             <li class='answer'></li>
             <li class='answer'></li>
         </ul>
+
+        <div id='score'> <span class='score-count'> 0 </span></div>
+        <div id='timer'> <span class='timer-count'> 20 </span></div>
     </div>
 
     <script src='assets/scripts.js' type='text/javascript'></script>
