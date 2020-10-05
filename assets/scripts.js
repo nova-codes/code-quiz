@@ -2,6 +2,8 @@
 var startButton = document.querySelector('.start-btn'),
     startScreen = document.querySelector('#start-screen'),
     quizDescription = document.querySelector('.quiz-start'),
+    questionText = document.querySelector('.question-text'),
+    answerDisplay = document.querySelector('.answer'),
     timerCount = document.querySelector('.timer-count'),
     scoreCount = document.querySelector('.score-count');
 
@@ -9,21 +11,25 @@ var quizQuestions = [
     {
         count: 1,
         question: "Javascript is a _____-side programming language.",
-        answerA: 'Client',
-        answerB: 'Server',
-        answerC: 'Both',
-        answerD: 'Neither',
-        correct: answerC
+        answers: {
+            a: 'Client',
+            b: 'Server',
+            c: 'Both',
+            d: 'None'
+        },
+        correct: 'c'
     },
     {
         count: 2,
         question: "Which of the following will write 'Help' in an alert box?",
-        answerA: 'alertBox("Help")',
-        answerB: 'alert(Help)',
-        answerC: 'alertUser("Help")',
-        answerD: 'alert("Help")',
-        correct: answerD
-    },
+        answers: {
+            a: 'alertBox("Help")',
+            b: 'alert(Help)',
+            c: 'alertText("Help")',
+            d: 'alert("Help")'
+        },
+        correct: 'd'
+    }
 ]
 
 // hide the start screen when button clicked
@@ -56,3 +62,6 @@ function timer() {
 }
 
 timer();
+
+// show questions
+
