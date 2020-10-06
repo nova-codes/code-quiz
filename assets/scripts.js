@@ -1,40 +1,60 @@
-// create variables that select our document areas
-var startButton = document.querySelector('.start-btn'),
-    startScreen = document.querySelector('#start-screen'),
-    quizDescription = document.querySelector('.quiz-start'),
-    questionText = document.querySelector('#question-text'),
-    answerDisplay = document.querySelector('.answer'),
-    timerCount = document.querySelector('.timer-count'),
-    scoreCount = document.querySelector('.score-count');
-
 var i = 0; 
 
 var quizQuestions = [
     {
-        count: 1,
         question: "Javascript is a _____-side programming language.",
-        answers: [
-            {text: 'Client', correct: false},
-            {text: 'Server', correct: false},
-            {text: 'Both', correct: true},
-            {text: 'None', correct: false}
-        ]
+        answers: {
+            a: 'Client',
+            b: 'Server',
+            c: 'Both',
+            d: 'None'
+        },
+        correct: 'c'
     },
     {
-        count: 2,
         question: "Which of the following will write 'Help' in an alert box?",
-        answers: [
-            {text: 'alertBox("Help")', correct: false},
-            {text: 'alert(Help)', correct: false},
-            {text: 'alertText("Help")', correct: false},
-            {text: 'alert("Help")', correct: true}
-        ]
+        answers: {
+            a: 'alertBox("Help")',
+            b: 'alert(Help)', 
+            c: 'alertText("Help")', 
+            d: 'alert("Help")'
+        },
+        correct: 'd'
     }
-]
+];
 
-// hide the start screen when button clicked
+var myQuiz = new quiz(quizQuestions, 100);
 
-function hideStart(){
+function answerButton(selection) {
+    myQuiz.answerButton(selection);
+}
+
+function quiz(questions, timerBegin = 20) {
+    /**
+     * 1. questions
+     * 2. each with four answers
+     * 3. time
+     * 4. reward with many score++
+     * 5. top 10 local storage leaderboard
+     * 6. penalties for incorrect answer (time--)
+     **/
+
+    var quizTimeSeconds = timerBegin,
+        quizInterval = {},
+        questionIndex = 0
+    
+    // create variables that select our document areas
+    var startButton = document.querySelector('.start-btn'),
+        startScreen = document.querySelector('#start-screen'),
+        questionCounter = document.querySelector('#q-counter'),
+        questionText = document.querySelector('#question-text'),
+        answerDisplay = document.querySelector('#answer-opt'),
+        timerCount = document.querySelector('.timer-count'),
+        scoreCount = document.querySelector('.score-count');
+
+    startButton.addEventListener('click', startQuiz);
+
+    function startQuiz() {
         if(startScreen.style.opacity = 1) {
             startScreen.style.opacity = 0;
             startScreen.style.zIndex = -1; 
@@ -42,31 +62,76 @@ function hideStart(){
         else {
             console.log(startScreen.style.opacity); 
         }
-        timer();
-        displayQuestions();
+        askNextQuestion();
+        startTimer();
+    }
 
+    function startTimer() {
+        quizInterval = setInterval(timer, 1000);
+    }
+
+    function timer() {
+        quizTimeSeconds--;
+        timerCount.textContent = quizTimeSeconds;
+        if(quizTimeSeconds <= 0) {
+            timerExpire();
+        }
+
+    }
+
+    function timerExpire() {
+        clearInterval(quizInterval);
+    }
+
+    function renderQuestion(question) {
+        questionText.textContent = question.question;
+    }
+
+    function askNextQuestion() {
+        let currentQuestion = questions[questionIndex];
+        renderQuestion(currentQuestion);
+        renderAnswers(currentQuestion);
+        renderQuestionCounter();
+        questionIndex++;
+    }
+
+    function renderQuestionCounter() {
+        questionCounter.textContent = questionIndex + 1;
+    }
+
+    function renderAnswers(question) {
+        answerDisplay.innerHTML = getAnswers(question);
+    }
+
+    function getAnswers(question) {
+        var returnValue = "";
+        
+        for(var letterKey in question.answers) {
+            var answer = question.answers[letterKey];
+            
+            returnValue += getAnswer(letterKey, answer);
+        }
+        return returnValue;
+    }
+
+    function getAnswer(letterKey, answer) { // this is so ugly, like me lmfao
+        return "<li class='answer' onclick=\"answerButton('" + letterKey + "')\">" + answer + "</li>"
+    }
+
+    function addScore() {
+
+    }
+
+    function checkAnswer(selection) {
+
+    }
+
+    function answerButton(selection) {
+        checkAnswer(selection);
+        askNextQuestion();
+    }
+
+    return {
+        answerButton: answerButton
     };
-
-    startButton.addEventListener('click', hideStart);
-
-// begin timer
-
-function timer() {
-    var seconds = timerCount.textContent;
-
-    var countdown = setInterval(function(){
-        seconds--;
-        timerCount.textContent = seconds;
-        if(seconds <= 0) clearInterval(countdown);
-    }, 1000); 
-}
-
-// show questions
-function displayQuestions(questionText) {
-    questionText.textContent = quizQuestions[i].question; 
-
-    var quizAnswers = Object.values(quizQuestions[i].answers[text]);
-
-    answerDisplay.textContent = quizAnswers;
-
 }
