@@ -124,12 +124,20 @@ body {
   justify-content: center;
 }
 
-#answer-opt li {
+#answer-opt button {
   list-style-type: none;
   flex: 0 1 auto; 
   padding: 20px;
   background: #6f2f6b;
   border-radius: 3px; 
-  margin: 2px; 
-  font-size: 15px; 
+  border: 0; 
+  margin: 5px; 
+  font-size: 16px; 
+  color: #efefef;
+}
+
+#answer-opt button::first-letter {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #c22c6b; 
 }
