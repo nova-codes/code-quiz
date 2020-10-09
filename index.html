@@ -25,7 +25,14 @@
     </div>
     
     <div class='jumbotron quiz-contain'>
-        <h1 class='question'> <span class='flick'>q</span>uest<span class='flick'>i</span>on <span id='q-counter'>0</span>/5</h1>
+        <div class='top-section'>
+            <div id='score'> score: <span class='score-count'> 0 </span></div>
+
+            <h1 class='question'> <span class='flick'>q</span>uest<span class='flick'>i</span>on <span id='q-counter'>0</span>/5</h1>
+
+            <div id='timer'> timer: <span class='timer-count'> 0 </span></div>
+        </div>
+
         <h3 id='question-text'></h3>
 
         <ul id='answer-opt'>
@@ -34,9 +41,6 @@
             <li class='answer'></li>
             <li class='answer'></li>
         </ul>
-
-        <div id='score'> <span class='score-count'> 0 </span></div>
-        <div id='timer'> <span class='timer-count'> 20 </span></div>
     </div>
 
     <script src='assets/scripts.js' type='text/javascript'></script>

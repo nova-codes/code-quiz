@@ -23,11 +23,12 @@ var quizQuestions = [
     }
 ];
 
-var myQuiz = new quiz(quizQuestions, 100);
+var myQuiz = new quiz(quizQuestions, 30);
 
 function answerButton(selection) {
     myQuiz.answerButton(selection);
 }
+
 
 function quiz(questions, timerBegin = 20) {
     /**
@@ -39,12 +40,17 @@ function quiz(questions, timerBegin = 20) {
      * 6. penalties for incorrect answer (time--)
      **/
 
-    var quizTimeSeconds = timerBegin,
+    // timer things
+    let quizTimeSeconds = timerBegin,
         quizInterval = {},
-        questionIndex = 0
-    
+        questionIndex = 0,
+        questionTotal = quizQuestions.length,
+        currentQuestion;
+
+    let score = 0;
+
     // create variables that select our document areas
-    var startButton = document.querySelector('.start-btn'),
+    let startButton = document.querySelector('.start-btn'),
         startScreen = document.querySelector('#start-screen'),
         questionCounter = document.querySelector('#q-counter'),
         questionText = document.querySelector('#question-text'),
@@ -88,10 +94,12 @@ function quiz(questions, timerBegin = 20) {
     }
 
     function askNextQuestion() {
-        let currentQuestion = questions[questionIndex];
+        currentQuestion = questions[questionIndex];
+
         renderQuestion(currentQuestion);
         renderAnswers(currentQuestion);
         renderQuestionCounter();
+
         questionIndex++;
     }
 
@@ -114,15 +122,34 @@ function quiz(questions, timerBegin = 20) {
         return returnValue;
     }
 
-    function getAnswer(letterKey, answer) { // this is so ugly, like me lmfao
-        return "<li class='answer' onclick=\"answerButton('" + letterKey + "')\">" + answer + "</li>"
+    function getAnswer(letterKey, answer) { // this is so ugly, like me lmfao   
+        return `<li class="answer" onclick="answerButton('${letterKey}')"> ${answer} </li>`
     }
 
-    function addScore() {
+    function scoreCounter() {
+        let score = scoreCount;
 
+        function addScore() {
+            score += 10 + timer.textContent;
+        }
     }
 
-    function checkAnswer(selection) {
+    function checkAnswer(selection) {  
+        // x user selects answer
+        // check that answer is correct
+        // if answer is correct - reward user
+        // if answer incorrect - penalize user
+        
+        if(currentQuestion.correct === selection) {
+            
+            // addTime(); 
+        } else {
+            // subtractScore();
+            // subtractTime(); 
+            console.log('try again');
+        }
+
+        console.log(selection);
 
     }
 
@@ -135,3 +162,20 @@ function quiz(questions, timerBegin = 20) {
         answerButton: answerButton
     };
 }
+
+
+// this is at the top with all my other global variables
+var timerCount = document.querySelector('.timer-count');
+
+// begin timer
+function timer() {
+    var seconds = timerCount.textContent;
+
+    var countdown = setInterval(function(){
+        seconds--;
+        timerCount.textContent = seconds;
+        if(seconds <= 0) clearInterval(countdown);
+    }, 1000); 
+}
+
+timer();
