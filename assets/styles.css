@@ -69,6 +69,10 @@ body {
     text-align: center;
 }
 
+.quiz-contain {
+  margin: 25vh auto;
+}
+
 .flicker,
 .question {
     font: 100px/120% 'Starway', serif;
@@ -119,14 +123,17 @@ body {
   text-transform: uppercase; 
 }
 
-.quiz-contain {
-    margin-top: 35vh; 
+#question-text {
+  width: 75%; 
+  text-align: center;
+  margin: 10px auto; 
 }
 
 #answer-opt {
   width: 75%;
   margin: 20px auto;
   display: flex;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }

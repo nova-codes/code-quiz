@@ -30,6 +30,26 @@ var quizQuestions = [
             d: '+'
         },
         correct: 'a'
+    },
+    {
+        ask: "How would you add a class of 'answer' to an existing element using javascript?",
+        answers: {
+            a: "<i>element</i>.addClassName('answer')",
+            b: "<i>element</i>.className('answer')", 
+            c: "<i>element</i>.addClass('answer')", 
+            d: "<i>element</i>.setAttribute('class', 'answer')"
+        },
+        correct: 'b'
+    },
+    {
+        ask: "Why am I spending $10,995 to teach myself a skill for a grade from someone who isn't my instructor?",
+        answers: {
+            a: "¯\\\_(ツ)_/¯",
+            b: "¯\\\_(ツ)_/¯",
+            c: "¯\\\_(ツ)_/¯",
+            d: "¯\\\_(ツ)_/¯"
+        },
+        correct: 'a'
     }
 ];
 
