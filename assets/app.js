@@ -20,6 +20,16 @@ var quizQuestions = [
             d: 'alert("Help")'
         },
         correct: 'd'
+    },
+    {
+        ask: "Which operator will return the value of the remainder?",
+        answers: {
+            a: '%',
+            b: '!', 
+            c: 'R', 
+            d: '+'
+        },
+        correct: 'a'
     }
 ];
 
@@ -31,8 +41,8 @@ let startButton = document.querySelector('.start-btn'),
     answerDisplay = document.querySelector('#answer-opt'),
     timerCount = document.querySelector('.timer-count'),
     scoreCount = document.querySelector('.score-count'),
-    timerBegin = 60,
-    quizTimeSeconds = timerBegin,
+    endScreen = document.querySelector('#end-screen'),
+    quizTimeSeconds = 0,
     quizInterval = {},
     questionIndex = 0,
     questionTotal = quizQuestions.length,
@@ -48,11 +58,12 @@ function startQuiz() {
     else {
         console.log(startScreen.style.opacity); 
     }
-    askNextQuestion();
     startTimer();
+    askNextQuestion();
 }
 
 function startTimer() {
+    quizTimeSeconds = 60;
     quizInterval = setInterval(timer, 1000);
 }
 
@@ -83,11 +94,16 @@ function displayQuestion(question) {
 function askNextQuestion() {
     currentQuestion = quizQuestions[questionIndex];
 
+    if(questionIndex >= questionTotal) {
+        endScreen.style.opacity = 1;
+        endScreen.style.zIndex = 3;
+    } else {
+        
     displayQuestion(currentQuestion);
     displayAnswers(currentQuestion);
     questionNumber();
 
-    questionIndex++;
+    questionIndex++; }
 }
 
 // put the answers in the buttons
@@ -115,16 +131,59 @@ function generateButtons(letterKey, answer) {
     createButton.id = letterKey;
     createButton.className = 'answer';
     createButton.innerHTML = letterKey + '. ' + answer;
+    createButton.setAttribute('onclick', 'checkAnswer("'+ letterKey +'")');
 
-    createButton.addEventListener('click', askNextQuestion); 
+    // createButton.addEventListener('click', checkAnswer); 
 
     return createButton.outerHTML;
     
     //.addEventListener('click', askNextQuestion);
 }
 
+function checkAnswer(selection) {  
+    // x user selects answer
+    // check that answer is correct
+    // if answer is correct - reward user
+    // if answer incorrect - penalize user
+    
+
+    if(selection === currentQuestion.correct) {
+        quizTimeSeconds += 10;
+        scoreCount.textContent = quizTimeSeconds;
+        console.log(selection);
+    } else {
+        quizTimeSeconds - 10;
+        console.log("no");
+    }
+
+    askNextQuestion(); 
+
+}
 
 
+
+
+// game over - no more questions
+// game over - no more time
+// game over - programmer died sry
+
+// leaderboard
+/**
+ * user time at completion
+ * user score at completion
+ * user initials 
+ * submit button idk
+ */
+
+ function highScore(userTime, userScore, userName) {
+    return {
+        time: userTime,
+        score: userScore,
+        name: userName
+    }
+ }
+
+// 
 
 
 /** 
