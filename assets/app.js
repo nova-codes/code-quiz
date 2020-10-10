@@ -42,6 +42,8 @@ let startButton = document.querySelector('.start-btn'),
     timerCount = document.querySelector('.timer-count'),
     scoreCount = document.querySelector('.score-count'),
     endScreen = document.querySelector('#end-screen'),
+    finalScore = document.querySelector('#final-score'),
+    score = scoreCount.textContent,
     quizTimeSeconds = 0,
     quizInterval = {},
     questionIndex = 0,
@@ -78,6 +80,7 @@ function timer() {
 
 function timerExpire() {
     clearInterval(quizInterval);
+    gameOver();
 }
 
 // question 1/n, 2/n ... etc.
@@ -95,15 +98,15 @@ function askNextQuestion() {
     currentQuestion = quizQuestions[questionIndex];
 
     if(questionIndex >= questionTotal) {
-        endScreen.style.opacity = 1;
-        endScreen.style.zIndex = 3;
+        gameOver();
     } else {
         
-    displayQuestion(currentQuestion);
-    displayAnswers(currentQuestion);
-    questionNumber();
+        displayQuestion(currentQuestion);
+        displayAnswers(currentQuestion);
+        questionNumber();
 
-    questionIndex++; }
+        questionIndex++; 
+    }
 }
 
 // put the answers in the buttons
@@ -141,15 +144,10 @@ function generateButtons(letterKey, answer) {
 }
 
 function checkAnswer(selection) {  
-    // x user selects answer
-    // check that answer is correct
-    // if answer is correct - reward user
-    // if answer incorrect - penalize user
-    
 
-    if(selection === currentQuestion.correct) {
+    if(selection === currentQuestion.correct) {        
+        score = quizTimeSeconds;
         quizTimeSeconds += 10;
-        scoreCount.textContent = quizTimeSeconds;
         console.log(selection);
     } else {
         quizTimeSeconds - 10;
@@ -160,12 +158,11 @@ function checkAnswer(selection) {
 
 }
 
-
-
-
-// game over - no more questions
-// game over - no more time
-// game over - programmer died sry
+function gameOver() {
+    endScreen.style.opacity = 1;
+    endScreen.style.zIndex = 3;
+    finalScore.textContent = score;
+}
 
 // leaderboard
 /**
@@ -182,72 +179,3 @@ function checkAnswer(selection) {
         name: userName
     }
  }
-
-// 
-
-
-/** 
-function renderQuestion(question) {
-    questionText.textContent = question.question;
-}
-
-function askNextQuestion() {
-    currentQuestion = questions[questionIndex];
-
-    renderQuestion(currentQuestion);
-    renderAnswers(currentQuestion);
-    renderQuestionCounter();
-
-    questionIndex++;
-}
-
-function renderQuestionCounter() {
-    questionCounter.textContent = questionIndex + 1;
-}
-
-function renderAnswers(question) {
-    answerDisplay.innerHTML = getAnswers(question);
-}
-
-function getAnswers(question) {
-    var returnValue = "";
-    
-    for(var letterKey in question.answers) {
-        var answer = question.answers[letterKey];
-        
-        returnValue += getAnswer(letterKey, answer);
-    }
-    return returnValue;
-}
-
-function getAnswer(letterKey, answer) { // this is so ugly, like me lmfao   
-    return `<li class="answer" onclick="answerButton('${letterKey}')"> ${answer} </li>`
-}
-
-function scoreCounter() {
-
-}
-
-function checkAnswer(selection) {  
-    // x user selects answer
-    // check that answer is correct
-    // if answer is correct - reward user
-    // if answer incorrect - penalize user
-    
-    if(currentQuestion.correct === selection) {
-        
-        // addTime(); 
-    } else {
-        // subtractScore();
-        // subtractTime(); 
-        console.log('try again');
-    }
-
-    console.log(selection);
-
-}
-
-function answerButton(selection) {
-    checkAnswer(selection);
-    askNextQuestion();
-} */
